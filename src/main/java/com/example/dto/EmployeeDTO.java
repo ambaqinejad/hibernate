@@ -3,6 +3,7 @@ package com.example.dto;
 import com.example.model.Employee;
 import com.example.utils.HibernateUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaDelete;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
@@ -75,6 +76,32 @@ public class EmployeeDTO {
         session.getTransaction().commit();
         session.close();
         return employees;
+    }
+
+    public void deleteEmployeeById(int id) {
+        Session session = this.sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaDelete<Employee> cd = cb.createCriteriaDelete(Employee.class);
+        Root<Employee> root = cd.from(Employee.class);
+        cd.where(cb.equal(root.get("id"), id));
+        int numberOfRowsDeleted = session.createQuery(cd).executeUpdate();
+        System.out.println("Number of rows deleted: " + numberOfRowsDeleted);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteAllEmployeesByName(String name) {
+        Session session = this.sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaDelete<Employee> cd = cb.createCriteriaDelete(Employee.class);
+        Root<Employee> root = cd.from(Employee.class);
+        cd.where(cb.equal(root.get("name"), name));
+        int numberOfRowsDeleted = session.createQuery(cd).executeUpdate();
+        System.out.println("Number of rows deleted: " + numberOfRowsDeleted);
+        session.getTransaction().commit();
+        session.close();
     }
 
     public void tearDown() {

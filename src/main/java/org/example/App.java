@@ -25,6 +25,12 @@ public class App {
 
         // READ ALL WITH NAME
         employeeDTO.getAllEmployeesWithName("Hossein");
+
+        // DELETE BY ID
+        employeeDTO.deleteEmployeeById(1);
+
+        // DELETE ALL BY NAME
+        employeeDTO.deleteAllEmployeesByName("Hossein");
         employeeDTO.tearDown();
     }
 }
