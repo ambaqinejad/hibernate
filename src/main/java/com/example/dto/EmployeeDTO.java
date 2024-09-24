@@ -104,6 +104,10 @@ public class EmployeeDTO {
         session.close();
     }
 
+    public void updateUsingCriteriaAPI(int id) {
+
+    }
+
     public void tearDown() {
         this.sessionFactory.close();
     }
